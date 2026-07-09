@@ -96,3 +96,11 @@ app_restart(){
     VALIDATE $? "$app_name restarting"
 
 }
+java_setup(){
+    dnf install maven -y 
+    VALIDATE $? "Installing Maven"
+
+    mvn clean package  
+    mv target/shipping-1.0.jar shipping.jar 
+    VALIDATE $? "Installing dependencies"
+}
