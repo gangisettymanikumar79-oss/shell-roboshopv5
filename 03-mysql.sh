@@ -13,3 +13,4 @@ validate $? "setting up root password"
 
 print_total_time
 
+
