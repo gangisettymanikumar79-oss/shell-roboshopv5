@@ -17,7 +17,7 @@ timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 echo -e "$TIMESTAMP [INFO] Script started"
 
-check_root(){
+check_root() {
     if [ $USERID -ne 0 ]; then
         echo -e "$TIMESTAMP [ERROR] $R Please run this script with root access $N" | tee -a $LOGS_FILE
         exit 1
@@ -28,7 +28,7 @@ if [ $USERID -ne 0 ]; then
  echo "$timestamp [ERROR] $G please run this script with root access $N" | tee -a $LOGS_FILE
         exit 1
 fi
-validate(){
+validate() {
     if [ $1 -ne 0 ]; then
         echo -e "$timestamp [ERROR] $2..............$B FAILURE $N" | tee -a $LOGS_FILE
         exit 1
@@ -37,11 +37,11 @@ validate(){
     fi
 }
 
-print_total_time(){
+print_total_time() {
     echo -e "$TIMESTAMP [INFO] Script executed in $G $SECONDS seconds $N"
 }
 
-app_setup(){
+app_setup() {
     id roboshop
 if [ $? -ne 0 ];then
  
