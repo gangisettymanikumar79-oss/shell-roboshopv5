@@ -16,5 +16,6 @@ validate $? "Allowing remote connections"
 systemctl enable redis 
 systemctl start redis 
 validate $? "starting redius"
+print_total_time
 
 
