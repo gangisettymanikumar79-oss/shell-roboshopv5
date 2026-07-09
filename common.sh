@@ -39,7 +39,7 @@ VALIDATE(){
 }
 
 print_total_time(){
-    echo -e "$TIMESTAMP [INFO] Script executed in $G $SECONDS seconds $N"
+    echo -e "$TIMESTAMP [INFO] Script executed in $G $SECONDS seconds $N" 
 }
 
 app_setup(){
@@ -52,29 +52,30 @@ else
     echo -e "system user roboshop alredy create......$BLUE Skipping $NC"
 fi
 rm -rf /app
-VALIDATE $? "Removing existing code"
+VALIDATE $? "Removing existing code" 
 
 rm -rf /tmp/$app_name.zip
 VALIDATE $? "Removed $app_name zip"
 
-mkdir -p  /app 
+mkdir -p  /app &>> $LOGS_FILE
 VALIDATE $? "createing app directory"
 
 curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip 
 cd /app 
-unzip /tmp/$app_name.zip
+unzip /tmp/$app_name.zip &>> $LOGS_FILE
+ VALIDATE $? "Creating app directory"
 
 }
 
 nodejs_setup(){
 
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
+dnf module disable nodejs -y &>> $LOGS_FILE
+dnf module enable nodejs:20 -y &>> $LOGS_FILE
 
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGS_FILE
 VALIDATE $? "installing nodejs:20"
 
-npm install 
+npm install  &>> $LOGS_FILE
 VALIDATE $? "Installing dependencies "
 
 }
@@ -85,7 +86,7 @@ systemd_setup(){
     VALIDATE $? "Created systemctl service"
 
     systemctl daemon-reload
-    systemctl enable $app_name 
+    systemctl enable $app_name &>>$LOGS_FILE
     VALIDATE $? "Enabling $app_name"
 
 
@@ -97,19 +98,19 @@ app_restart(){
 
 }
 java_setup(){
-    dnf install maven -y 
+    dnf install maven -y &>>$LOGS_FILE
     VALIDATE $? "Installing Maven"
 
-    mvn clean package  
+    mvn clean package   &>>$LOGS_FILE
     mv target/shipping-1.0.jar shipping.jar 
     VALIDATE $? "Installing dependencies"
 }
 python_setup(){
 
-dnf install python3 gcc python3-devel -y
+dnf install python3 gcc python3-devel -y &>>$LOGS_FILE
 VALIDATE $? "installing  python"
 
-pip3 install -r requirements.txt
+pip3 install -r requirements.txt &>>$LOGS_FILE
 VALIDATE $? "Installing dependencies "
 
 
