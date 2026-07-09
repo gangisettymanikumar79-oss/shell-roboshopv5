@@ -19,3 +19,4 @@ validate $? "starting redius"
 print_total_time
 
 
+
