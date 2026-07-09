@@ -17,3 +17,4 @@ rabbitmqctl add_user roboshop roboshop123
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
 validate $? "setting up username and password"
+print_total_time

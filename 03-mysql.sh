@@ -10,3 +10,6 @@ systemctl start mysqld
  validate $? "enable and start mysqld"
 mysql_secure_installation --set-root-pass RoboShop@1
 validate $? "setting up root password"
+
+print_total_time
+
