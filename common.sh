@@ -2,9 +2,9 @@
 #!/bin/bash
 LOGS_FOLDER="/var/log/roboshop"
 sudo mkdir -p $LoGS_FOLDER
-sudo chown -R ec2-user:ec2-user $LoGS_FOLDER
-sudo chmod -R 755 $LoGS_FOLDER
-LoGS_FILE="$LOGS_FOLDER/$0.log"
+sudo chown -R ec2-user:ec2-user $LOGS_FOLDER
+sudo chmod -R 755 $LOGS_FOLDER
+LOGS_FILE="$LOGS_FOLDER/$0.log"
 
 USERID=$(id -u)
 
@@ -17,7 +17,7 @@ timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 echo -e "$TIMESTAMP [INFO] Script started"
 
-check_root() {
+check_root(){
     if [ $USERID -ne 0 ]; then
         echo -e "$TIMESTAMP [ERROR] $R Please run this script with root access $N" | tee -a $LOGS_FILE
         exit 1
@@ -28,7 +28,7 @@ if [ $USERID -ne 0 ]; then
  echo "$timestamp [ERROR] $G please run this script with root access $N" | tee -a $LOGS_FILE
         exit 1
 fi
-validate() {
+validate(){
     if [ $1 -ne 0 ]; then
         echo -e "$timestamp [ERROR] $2..............$B FAILURE $N" | tee -a $LOGS_FILE
         exit 1
@@ -37,11 +37,11 @@ validate() {
     fi
 }
 
-print_total_time() {
+print_total_time(){
     echo -e "$TIMESTAMP [INFO] Script executed in $G $SECONDS seconds $N"
 }
 
-app_setup() {
+app_setup(){
     id roboshop
 if [ $? -ne 0 ];then
  
@@ -65,20 +65,20 @@ unzip /tmp/$app_name.zip
 
 }
 
-nodejs_setup() {
+nodejs_setup(){
 
 dnf module disable nodejs -y
 dnf module enable nodejs:20 -y
 
 dnf install nodejs -y
-VALIDATE $? "install nodejs:20"
+VALIDATE $? "installing nodejs:20"
 
 npm install 
 VALIDATE $? "Installing dependencies "
 
 }
 
-systemd_setup() {
+systemd_setup(){
 
     cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
     VALIDATE $? "Created systemctl service"
@@ -90,7 +90,7 @@ systemd_setup() {
 
 }
 
-app_restart() {
+app_restart(){
     systemctl restart $app_name
     VALIDATE $? "$app_name restarting"
 
