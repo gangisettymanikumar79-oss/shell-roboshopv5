@@ -28,7 +28,7 @@ if [ $USERID -ne 0 ]; then
  echo "$timestamp [ERROR] $G please run this script with root access $N" | tee -a $LOGS_FILE
         exit 1
 fi
-validate(){
+VALIDATE(){
     if [ $1 -ne 0 ]; then
         echo -e "$timestamp [ERROR] $2..............$B FAILURE $N" | tee -a $LOGS_FILE
         exit 1
