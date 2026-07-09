@@ -6,6 +6,7 @@ check_root
 app_name=catalogue
 app_setup
 nodejs_setup
+systemd_setup
 
 
 
