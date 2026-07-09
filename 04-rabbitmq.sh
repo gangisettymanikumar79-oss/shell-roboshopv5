@@ -20,3 +20,4 @@ validate $? "setting up username and password"
 print_total_time
 
 
+
