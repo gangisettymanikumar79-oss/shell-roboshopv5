@@ -65,7 +65,7 @@ unzip /tmp/$app_name.zip
 
 }
 
-nodejs_setup(){
+nodejs_setup() {
 
 dnf module disable nodejs -y
 dnf module enable nodejs:20 -y
@@ -78,7 +78,7 @@ VALIDATE $? "Installing dependencies "
 
 }
 
-systemd_setup(){
+systemd_setup() {
 
     cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
     VALIDATE $? "Created systemctl service"
@@ -90,8 +90,8 @@ systemd_setup(){
 
 }
 
-app_restart(){
+app_restart() {
     systemctl restart $app_name
     VALIDATE $? "$app_name restarting"
-    
+
 }
