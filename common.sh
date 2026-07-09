@@ -40,3 +40,58 @@ validate(){
 print_total_time(){
     echo -e "$TIMESTAMP [INFO] Script executed in $G $SECONDS seconds $N"
 }
+
+app_setup(){
+    id roboshop
+if [ $? -ne 0 ];then
+ 
+   useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
+       VALIDATE $? "createing roboshop system user"
+else
+    echo -e "system user roboshop alredy create......$BLUE Skipping $NC"
+fi
+rm -rf /app
+VALIDATE $? "Removing existing code"
+
+rm -rf /tmp/$app_name.zip
+VALIDATE $? "Removed $app_name zip"
+
+mkdir -p  /app 
+VALIDATE $? "createing app directory"
+
+curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip 
+cd /app 
+unzip /tmp/$app_name.zip
+
+}
+
+nodejs_setup(){
+
+dnf module disable nodejs -y
+dnf module enable nodejs:20 -y
+
+dnf install nodejs -y
+VALIDATE $? "install nodejs:20"
+
+npm install 
+VALIDATE $? "Installing dependencies "
+
+}
+
+systemd_setup(){
+
+    cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service
+    VALIDATE $? "Created systemctl service"
+
+    systemctl daemon-reload
+    systemctl enable $app_name 
+    VALIDATE $? "Enabling $app_name"
+
+
+}
+
+app_restart(){
+    systemctl restart $app_name
+    VALIDATE $? "$app_name restarting"
+    
+}
