@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$source_DIR=$1
+source_DIR=$1
 days={3:-14}
 
 if [ -z "$source_DIR" ]; then
