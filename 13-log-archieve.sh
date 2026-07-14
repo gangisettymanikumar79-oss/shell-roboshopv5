@@ -20,6 +20,17 @@ if [ ! -d "destination_dir" ]; then
   exit 1
 fi
 
+FILE=$(find "$source_dir" -type f -name "*.log" -mtime +$days)
+
+if [ -z "$FILE" ]; then
+   echo "Log files older than 14 days not found, nothing to do"
+   exit 1
+if
+
+while IFS= read -r FILE
+do
+  echo "$FILE"
+done <<< "$FILE"
 
 
 
