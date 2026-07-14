@@ -4,7 +4,7 @@ source_dir=$1
 destination_dir=$2
 days=${3:-14}
 
-if [ -z "source_dir" ] || [ -z "destination_dir" ]; then 
+if [ -z "$source_dir" ] || [ -z "$destination_dir" ]; then 
    echo "Ether source directory or destination directory is empty"
    echo "usage :$0 [source_dir] [destination_dir] [days:(default -14)]"
   exit 1
