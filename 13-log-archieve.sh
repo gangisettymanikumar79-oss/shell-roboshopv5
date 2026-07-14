@@ -10,12 +10,12 @@ if [ -z "$source_dir" ] || [ -z "$destination_dir" ]; then
   exit 1
 fi
 
-if [ ! -d "source_dir" ]; then
+if [ ! -d "$source_dir" ]; then
   echo "source directory $source_dir does not  exist"
   exit 1
 fi
 
-if [ ! -d "destination_dir" ]; then
+if [ ! -d "$destination_dir" ]; then
   echo "destination_dir $destination_dir does not  exist"
   exit 1
 fi
@@ -31,6 +31,7 @@ while IFS= read -r FILE
 do
   echo "$FILE"
 done <<< "$FILE"
+
 
 
 
