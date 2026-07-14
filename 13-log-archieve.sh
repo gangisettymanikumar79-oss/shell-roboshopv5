@@ -11,12 +11,12 @@ if [ -z "source_dir" ] || [ -z "destination_dir" ]; then
 fi
 
 if [ ! -d "source_dir" ]; then
-  echo "source directory :$source directory doesn't is exist"
+  echo "source directory $source_dir doesn't is exist"
   exit 1
 fi
 
 if [ ! -d "destination_dir" ]; then
-  echo "destination_dir :$destination_dir doesn't is exist"
+  echo "destination_dir $destination_dir doesn't is exist"
   exit 1
 fi
 
